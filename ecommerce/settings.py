@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 EXTERNAL_APPS = [
     'store',
     'cart',
+    'mathfilters',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
