@@ -45,9 +45,14 @@ EXTERNAL_APPS = [
     'cart',
     'mathfilters',
     'account',
+    'crispy_forms',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
