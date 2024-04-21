@@ -46,6 +46,7 @@ EXTERNAL_APPS = [
     'mathfilters',
     'account',
     'crispy_forms',
+    'payment',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
