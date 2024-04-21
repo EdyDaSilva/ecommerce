@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def register(request):
@@ -113,7 +114,7 @@ def dashboard(request):
 def user_logout(request):
     # auth.logout(request)
     try:
-        for key in list(request.session.keys()):
+        for key in list(request.session.keys()):  # XXX
             if key == 'session_key':
                 continue
 
@@ -122,6 +123,8 @@ def user_logout(request):
 
     except KeyError:
         pass
+
+    messages.success(request, "Logout success!")
 
     return redirect('store')
 
@@ -136,6 +139,8 @@ def profile_management(request):
 
         if user_form.is_valid():
             user_form.save()
+
+            messages.info(request, "Account updated")
 
             return redirect('dashboard')
 
@@ -153,6 +158,8 @@ def delete_account(request):
 
     if request.method == 'POST':
         user.delete()
+
+        messages.error(request, "Account deleted")
 
         return redirect('store')
 
