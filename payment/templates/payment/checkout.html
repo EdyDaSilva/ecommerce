@@ -166,6 +166,8 @@
 
             actions.disable();
 
+            // Complete order - NO SHIPPING
+
             document.querySelectorAll('.validate').forEach(item => {
                 item.addEventListener('keyup', event => {
 
@@ -207,10 +209,48 @@
 
                 });
 
+                // Complete order - WITH SHIPPING
 
+                //  The required fields are filled out
+                var order_verified = 'Yes';
+
+                function checkInputs(){
+                    $(':input[required]').each(function(){
+                        if($(this).val() == ''){
+
+                            // The required fields are empty
+                            return order_verified = 'No';
+
+                        }
+
+                    });
+
+                    return order_verified;
+
+                }
+
+                var isOrderVerified = checkInputs()
+
+                if(isOrderVerified === 'Yes')
+                {
+
+                    actions.enable();
+
+                }
+
+                else
+                {
+
+
+                    actions.disable();
+
+
+                }
 
 
             });
+
+
 
         },
 
@@ -247,14 +287,59 @@
         // finalize the transaction
         onApprove: (data, actions) => {
             const captureOrderHandler = (details) => {
+
                 const payerName = details.payer.name.given_name;
+
                 console.log('Transaction completed');
+
+                // ajax functionality
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '{% url "complete-order" %}',
+                    data: {
+        
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+        
+                        address1: $('#address1').val(),
+                        address2: $('#address2').val(),
+                        city: $('#city').val(),
+                        
+                        county: $('#county').val(),
+                        aircode: $('#aircode').val(),
+        
+        
+                        csrfmiddlewaretoken: "{{csrf_token}}",
+                        action: 'post'
+        
+                    },
+        
+                    success: function(json){
+        
+                        //console.log(json)
+        
+                        window.location.replace("{% url 'payment-success' %}");
+        
+        
+                    },
+        
+                    error: function(xhr, errmsg, err){
+        
+                        window.location.replace("{% url 'payment-failed' %}");
+        
+                    }
+        
+                });
 
 
             };
 
             return actions.order.capture().then(captureOrderHandler);
         },
+
+
 
         // handle unrecoverable errors
         onError: (err) => {
@@ -270,7 +355,10 @@
         .catch((err) => {
             console.error('PayPal Buttons failed to render');
         });
-    /*
+
+    
+    // complete checkout   
+    /* 
     $(document).on('submit',  function(e){
 
         e.preventDefault();
@@ -317,6 +405,7 @@
 
     })
     */
+    
     
    </script>
 
