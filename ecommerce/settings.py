@@ -157,3 +157,8 @@ EMAIL_USE_TLS = 'True'
 
 EMAIL_HOST_USER = 'coffedirectshop@gmail.com'
 EMAIL_HOST_PASSWORD = 'ytmocjicxguhubya'
+
+
+# Allow PayPal Popus
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
