@@ -72,7 +72,7 @@
 
                     <div class="form-field">
 
-                        <input class="form-control validate" id="address2" type="text" placeholder="Address 2" autocomplete="off" value="{{shipping.address2}}" required>
+                        <input class="form-control validate" id="address2" type="text" placeholder="Address 2" autocomplete="off" value="{{shipping.address2}}">
 
                     </div>
 
@@ -92,7 +92,7 @@
 
                     <div class="form-field">
 
-                        <input class="form-control" id="county" type="text" placeholder="County" autocomplete="off" value="{{shipping.city}}">
+                        <input class="form-control" id="county" type="text" placeholder="County" autocomplete="off" value="{{shipping.city}}" required>
 
                     </div>
 
@@ -139,10 +139,55 @@
 
     <script>
 
-
+    // Complete checkout
     
+    
+    $(document).on('submit',  function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+
+            type: 'POST',
+            url: '{% url "complete-order" %}',
+            data: {
+
+                name: $('#name').val(),
+                email: $('#email').val(),
+
+                address1: $('#address1').val(),
+                address2: $('#address2').val(),
+                city: $('#city').val(),
+                
+                county: $('#county').val(),
+                aircode: $('#aircode').val(),
 
 
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+
+            },
+
+            success: function(json){
+
+                //console.log(json)
+
+                window.location.replace("{% url 'payment-success' %}");
+
+
+            },
+
+            error: function(xhr, errmsg, err){
+
+                window.location.replace("{% url 'payment-failed' %}");
+
+            }
+
+        });
+
+
+    })
+    
    </script>
 
 
