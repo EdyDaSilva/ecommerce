@@ -26,7 +26,7 @@
 
         <div class="container bg-white shadow-md p-5" style="width:500px; border-radius:20px;">
 
-            <form id="form">
+            <form id="form" onsubmit="event.preventDefault();">
 
                 <div>
 
@@ -72,7 +72,7 @@
 
                     <div class="form-field">
 
-                        <input class="form-control validate" id="address2" type="text" placeholder="Address 2" autocomplete="off" value="{{shipping.address2}}">
+                        <input class="form-control" id="address2" type="text" placeholder="Address 2" autocomplete="off" value="{{shipping.address2}}">
 
                     </div>
 
@@ -92,7 +92,7 @@
 
                     <div class="form-field">
 
-                        <input class="form-control" id="county" type="text" placeholder="County" autocomplete="off" value="{{shipping.city}}" required>
+                        <input class="form-control validate" id="county" type="text" placeholder="County*" autocomplete="off" value="{{shipping.city}}" required>
 
                     </div>
 
@@ -112,10 +112,11 @@
 
 
 
-               <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button>
-               
+               <!--<button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button>
+               -->
+
                 <br>
-                <br>
+
 
                 <!-- PayPal button container -->
 
@@ -129,9 +130,9 @@
             </form>
 
 
-        </div>
+        </div>     
 
-        
+
 
         <br>
 
@@ -141,7 +142,7 @@
 
     <!-- Ajax integration -->
 
-    
+
 
     <script>
 
@@ -154,10 +155,65 @@
         // optional styling for buttons
         // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
         style: {
-          color: "gold",
-          shape: "rect",
+          color: "silver",
+          shape: "pill",
           layout: "vertical"
         },
+
+        onInit: function(data, actions) {
+
+            actions.disable();
+
+            document.querySelectorAll('.validate').forEach(item => {
+                item.addEventListener('keyup', event => {
+
+                    //  The required fields are filled out
+                    var order_verified = 'Yes';
+
+                    function checkInputs(){
+                        $(':input[required]').each(function(){
+                            if($(this).val() == ''){
+
+                                // The required fields are empty
+                                return order_verified = 'No';
+
+                            }
+
+                        });
+
+                        return order_verified;
+
+                    }
+
+                    var isOrderVerified = checkInputs()
+
+                    if(isOrderVerified === 'Yes')
+                    {
+
+                        actions.enable();
+
+                    }
+
+                    else
+                    {
+
+
+                        actions.disable();
+
+
+                    }
+
+                });
+
+
+
+
+            });
+
+        },
+
+
+
 
         // set up the transaction
         createOrder: (data, actions) => {
@@ -175,6 +231,16 @@
 
             return actions.order.create(createOrderPayload);
         },
+
+
+
+
+
+
+
+
+
+
 
         // finalize the transaction
         onApprove: (data, actions) => {
@@ -202,7 +268,7 @@
         .catch((err) => {
             console.error('PayPal Buttons failed to render');
         });
-    
+    /*
     $(document).on('submit',  function(e){
 
         e.preventDefault();
@@ -248,6 +314,7 @@
 
 
     })
+    */
     
    </script>
 
