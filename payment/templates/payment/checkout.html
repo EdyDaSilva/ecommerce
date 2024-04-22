@@ -143,8 +143,10 @@
     <!-- Ajax integration -->
 
 
-
     <script>
+
+    // Complete checkout
+    var total_price = '{{cart.get_total}}';
 
     // Complete checkout
     
@@ -223,7 +225,7 @@
                 purchase_units: [
                     {
                         amount: {
-                            value: "88.44"
+                            value: total_price
                         }
                     }
                 ]
