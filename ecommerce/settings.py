@@ -47,6 +47,7 @@ EXTERNAL_APPS = [
     'account',
     'crispy_forms',
     'payment',
+    'storages',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
