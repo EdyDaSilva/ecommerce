@@ -163,3 +163,17 @@ EMAIL_HOST_PASSWORD = 'ytmocjicxguhubya'
 # Allow PayPal Popus
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
+# AWS credentials
+AWS_ACCESS_KEY_ID = "AKIATCKAP5FGJR5W2A6D"
+AWS_SECRET_ACCESS_KEY = "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"
+
+# S3 configuration settings
+AWS_STORAGE_BUCKET_NAME = 'coffeebucket-1'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+
