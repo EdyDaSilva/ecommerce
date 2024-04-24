@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+#from decouple import config
+import environ
+
+
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +28,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3znnor+#6n)8*3y6ao%44$s+lv$&ci%9ng6dw3yj#0ypy0c9mf'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+#CSRF_TRUSTED_ORIGINS = ['']
 
 
 # Application definition
@@ -197,13 +207,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'shop_1',
+        'NAME': env('DATABASE_NAME'),
 
-        'USER': 'edy',
+        'USER': env('DATABASE_USER'),
 
-        'PASSWORD': 'Edy*050301',
+        'PASSWORD': env('DATABASE_PASS'),
 
-        'HOST': 'database-cs.c30iwquyqg7w.us-east-1.rds.amazonaws.com',
+        'HOST': env('DATABASE_HOST'),
 
         'PORT': '5432',
 
