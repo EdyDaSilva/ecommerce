@@ -92,13 +92,14 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -185,3 +186,29 @@ AWS_S3_FILE_OVERWRITE = False
 
 # admin styling adjustment
 ADMIN_MEDIA_PREFIX = '/static/admin'
+
+
+# AWS RDS (Database) configuration settings:
+
+
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': 'shop_1',
+
+        'USER': 'edy',
+
+        'PASSWORD': 'Edy*050301',
+
+        'HOST': 'database-cs.c30iwquyqg7w.us-east-1.rds.amazonaws.com',
+
+        'PORT': '5432',
+
+
+    }
+
+}
+
