@@ -175,8 +175,8 @@ EMAIL_HOST_PASSWORD = 'ytmocjicxguhubya'
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 # AWS credentials
-AWS_ACCESS_KEY_ID = "AKIATCKAP5FGJR5W2A6D"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
 # S3 configuration settings
 AWS_STORAGE_BUCKET_NAME = 'coffeebucket-1'
