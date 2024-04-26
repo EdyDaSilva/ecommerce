@@ -1,12 +1,12 @@
 from django.contrib.sitemaps import Sitemap
-from .models import MyModel
+from .models import Product
 
 class MyModelSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.5
     
     def items(self):
-        return MyModel.objects.all()
+        return Product.objects.all()
     
     def lastmod(self, obj):
         return obj.updated_at  # assuming your model has `updated_at` field
