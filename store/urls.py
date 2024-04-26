@@ -2,6 +2,8 @@
 from django.urls import path
 
 from . import views
+from .sitemaps import MyModelSitemap
+
 
 urlpatterns = [
 
@@ -13,6 +15,9 @@ urlpatterns = [
 
     # by category
     path('search/<slug:category_slug>/', views.list_category, name='list-category'), 
+
+    path('sitemap.xml', MyModelSitemap, {'sitemaps': MyModelSitemap},
+         name='django.contrib.sitemaps.views.sitemap')
 
 ]
 
